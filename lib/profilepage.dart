@@ -1,5 +1,6 @@
 import 'package:edukids/EditProfilePage.dart';
 import 'package:edukids/LanguagePage.dart';
+import 'package:edukids/loginscreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -231,7 +232,11 @@ class ProfilePage extends StatelessWidget {
                     textColor: Colors.red,
                     iconColor: Colors.red,
                     onTap: () {
-                      // Action for Logout
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()),
+                      );
                     },
                   ),
                 ],

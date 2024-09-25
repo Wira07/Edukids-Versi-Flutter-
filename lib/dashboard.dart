@@ -10,22 +10,27 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 0; // Untuk melacak item yang dipilih di BottomNavigationBar
+  int _selectedIndex =
+      0; // Untuk melacak item yang dipilih di BottomNavigationBar
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
 
-    if (index == 1) { // Indeks untuk Course
+    if (index == 1) {
+      // Indeks untuk Course
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ThreePage()),
       );
-    } else if (index == 3) { // Indeks untuk Profile
+    } else if (index == 3) {
+      // Indeks untuk Profile
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ProfilePage()), // Navigasi ke ProfilePage
+        MaterialPageRoute(
+            builder: (context) =>
+                const ProfilePage()), // Navigasi ke ProfilePage
       );
     }
   }
@@ -71,7 +76,8 @@ class _DashboardState extends State<Dashboard> {
               accountName: Text('Wira Sukma Saputra'),
               accountEmail: Text('wiralodrasaputra07@gmail.com'),
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/ui_ux.jpeg'), // Path gambar profil
+                backgroundImage:
+                    AssetImage('assets/ui_ux.jpeg'), // Path gambar profil
               ),
               decoration: BoxDecoration(
                 color: Colors.purple, // Warna latar belakang header
@@ -88,7 +94,10 @@ class _DashboardState extends State<Dashboard> {
               leading: const Icon(Icons.book),
               title: const Text('Course'),
               onTap: () {
-                Navigator.pop(context); // Menutup Drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ThreePage()),
+                );
               },
             ),
             ListTile(
@@ -102,7 +111,10 @@ class _DashboardState extends State<Dashboard> {
               leading: const Icon(Icons.person),
               title: const Text('Profile'),
               onTap: () {
-                Navigator.pop(context); // Menutup Drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfilePage()),
+                );
               },
             ),
           ],

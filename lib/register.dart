@@ -1,22 +1,7 @@
 import 'package:edukids/dashboard.dart';
-import 'package:edukids/loginscreen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false, // Hilangkan banner debug
-      home: RegisterScreen(),
-    );
-  }
-}
+import 'loginscreen.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -27,31 +12,29 @@ class RegisterScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            color: Colors.purple, // Warna background ungu
+            color: Colors.white, // Background putih sesuai gambar
           ),
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.only(top: 80.0),
+              padding: const EdgeInsets.only(top: 40.0), // Atur jarak dari atas
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset(
-                    'assets/TCourse.jpg', // Ganti dengan path gambar ilustrasi kamu
-                    height: 200,
+                    'assets/TCourse.jpg', // Sesuaikan path gambar logo kamu
+                    height: 40, // Perkecil tinggi gambar
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Wecare",
+                    style: TextStyle(
+                      fontSize: 22, // Perkecil ukuran teks
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green, // Warna teks hijau sesuai gambar
+                    ),
                   ),
                 ],
-              ),
-            ),
-          ),
-          const Positioned(
-            top: 0,
-            right: 0,
-            child: Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Icon(
-                Icons.arrow_forward,
-                color: Colors.yellow, // Warna icon
-                size: 30,
               ),
             ),
           ),
@@ -59,7 +42,8 @@ class RegisterScreen extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: double.infinity,
-              height: 500, // Tinggi container untuk bagian putih
+              height: MediaQuery.of(context).size.height *
+                  0.7, // Menyesuaikan tinggi container
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -70,38 +54,67 @@ class RegisterScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // Buat konten di tengah
                   children: [
-                    const SizedBox(height: 40),
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Full Name',
-                        prefixIcon: const Icon(Icons.person),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Register for free',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black, // Warna teks hitam
                       ),
                     ),
                     const SizedBox(height: 20),
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Email Address',
-                        prefixIcon: const Icon(Icons.email),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Full Name',
+                                prefixIcon: const Icon(Icons.person),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Email',
+                                prefixIcon: const Icon(Icons.email),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            TextField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                prefixIcon: const Icon(Icons.lock),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                suffixIcon: const Icon(Icons.visibility),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: true, // Sesuaikan jika diperlukan
+                                  onChanged: (bool? value) {},
+                                  activeColor: Colors.green,
+                                ),
+                                const Text('Remember me'),
+                              ],
+                            ),
+                          ],
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        prefixIcon: const Icon(Icons.lock),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        suffixIcon: const Icon(Icons.visibility),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -109,21 +122,29 @@ class RegisterScreen extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.yellow, // Warna tombol Sign Up
+                          backgroundColor: Colors.green, // Warna tombol hijau
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius:
+                                BorderRadius.circular(30), // Sesuaikan radius
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 15),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Dashboard()),
+                          );
+                        },
                         child: const Text(
-                          'Sign Up',
+                          'Register',
                           style: TextStyle(
-                              fontSize: 18, color: Colors.black), // Warna teks
+                              fontSize: 18,
+                              color: Colors.white), // Warna teks putih
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 15),
                     const Row(
                       children: [
                         Expanded(
@@ -131,35 +152,36 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text('Or'),
+                          child: Text('or continue with'),
                         ),
                         Expanded(
                           child: Divider(),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        IconButton(
+                          icon: Image.asset('assets/facebook.png'),
+                          // Logo Facebook
+                          iconSize: 40,
+                          onPressed: () {},
+                        ),
                         IconButton(
                           icon: Image.asset('assets/google.png'), // Logo Google
                           iconSize: 40,
                           onPressed: () {},
                         ),
                         IconButton(
-                          icon: Image.asset('assets/facebook.png'),
-                          iconSize: 40,
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Image.asset('assets/github.png'),
+                          icon: Image.asset('assets/github.png'), // Logo GitHub
                           iconSize: 40,
                           onPressed: () {},
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -168,12 +190,13 @@ class RegisterScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const Dashboard()),
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginScreen()),
                             );
                           },
                           child: const Text(
-                            'Log In',
-                            style: TextStyle(color: Colors.yellow),
+                            'Sign in',
+                            style: TextStyle(color: Colors.green),
                           ),
                         ),
                       ],

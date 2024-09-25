@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
+import 'dashboard.dart'; // Mengimpor dashboard.dart
+
 void main() {
-  runApp(ThreePage());
+  runApp(const ThreePage());
 }
 
 class ThreePage extends StatelessWidget {
+  const ThreePage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: CourseDetailScreen(),
     );
@@ -15,6 +19,8 @@ class ThreePage extends StatelessWidget {
 }
 
 class CourseDetailScreen extends StatelessWidget {
+  const CourseDetailScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +31,12 @@ class CourseDetailScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            // Tambahkan ini agar tombol back bisa berfungsi
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const Dashboard()), // Ganti dengan kelas Dashboard Anda
+            );
           },
         ),
         actions: [
@@ -39,7 +50,7 @@ class CourseDetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Course Image
+            // Gambar Kursus
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: ClipRRect(
@@ -55,14 +66,15 @@ class CourseDetailScreen extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Mentor Info
+            // Informasi Mentor
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundImage: AssetImage('assets/TCourse.jpg'), // Ganti dengan gambar mentor
+                    backgroundImage: AssetImage(
+                        'assets/TCourse.jpg'), // Ganti dengan gambar mentor
                   ),
                   SizedBox(width: 12),
                   Column(
@@ -70,9 +82,11 @@ class CourseDetailScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Wira Sukma Saputra',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
                       ),
-                      Text('Mobile Developer | Freelancer', style: TextStyle(color: Colors.grey)),
+                      Text('Mobile Developer | Freelancer',
+                          style: TextStyle(color: Colors.grey)),
                     ],
                   ),
                   Spacer(),
@@ -80,7 +94,8 @@ class CourseDetailScreen extends StatelessWidget {
                     children: [
                       Icon(Icons.star, color: Colors.amber, size: 20),
                       SizedBox(width: 4),
-                      Text('4.9', style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text('4.9',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ],
@@ -89,7 +104,7 @@ class CourseDetailScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            // Tab for Course and Description
+            // Tab untuk Course dan Description
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
@@ -107,13 +122,15 @@ class CourseDetailScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                         child: const Center(
-                          child: Text('Course (25)', style: TextStyle(fontWeight: FontWeight.bold)),
+                          child: Text('Course (25)',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                       ),
                     ),
                     const Expanded(
                       child: Center(
-                        child: Text('Description', style: TextStyle(color: Colors.grey)),
+                        child: Text('Description',
+                            style: TextStyle(color: Colors.grey)),
                       ),
                     ),
                   ],
@@ -123,9 +140,9 @@ class CourseDetailScreen extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Lessons List
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            // Daftar Pelajaran
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
                   LessonTile('Introduction', '20 min', true),
@@ -141,19 +158,28 @@ class CourseDetailScreen extends StatelessWidget {
         ),
       ),
 
-      // Bottom Enroll Button
+      // Tombol Daftar di Bawah
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const Dashboard()), // Mengarahkan ke Dashboard
+            );
+          },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF6C63FF), // Warna ungu sesuai gambar
+            backgroundColor: const Color(0xFF6C63FF),
+            // Warna ungu sesuai gambar
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
             padding: const EdgeInsets.symmetric(vertical: 16),
           ),
-          child: const Text('Enroll Course - \$300', style: TextStyle(fontSize: 18, color: Colors.white)),
+          child: const Text('Enroll Course - \$300',
+              style: TextStyle(fontSize: 18, color: Colors.white)),
         ),
       ),
     );
@@ -165,7 +191,8 @@ class LessonTile extends StatelessWidget {
   final String duration;
   final bool isCompleted;
 
-  LessonTile(this.title, this.duration, this.isCompleted);
+  const LessonTile(this.title, this.duration, this.isCompleted, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -27,31 +27,28 @@ class LoginScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            color: Colors.purple, // Warna background ungu
+            color: Colors.white, // Background putih sesuai gambar
           ),
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.only(top: 80.0),
+              padding: const EdgeInsets.only(top: 60.0),
               child: Column(
                 children: [
                   Image.asset(
-                    'assets/TCourse.jpg', // Ganti dengan path gambar ilustrasi kamu
-                    height: 200,
+                    'assets/TCourse.jpg', // Sesuaikan path gambar logo kamu
+                    height: 80,
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Wecare",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green, // Warna teks hijau sesuai gambar
+                    ),
                   ),
                 ],
-              ),
-            ),
-          ),
-          const Positioned(
-            top: 0,
-            right: 0,
-            child: Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Icon(
-                Icons.arrow_forward,
-                color: Colors.yellow, // Warna icon
-                size: 30,
               ),
             ),
           ),
@@ -59,7 +56,7 @@ class LoginScreen extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: double.infinity,
-              height: 500, // Tinggi container untuk bagian putih
+              height: 500, // Tinggi container untuk bagian bawah
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -70,15 +67,24 @@ class LoginScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 40),
+                    const Text(
+                      'Sign up for free',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black, // Warna teks hitam
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                     TextField(
                       decoration: InputDecoration(
-                        labelText: 'Email Address',
+                        labelText: 'Email',
                         prefixIcon: const Icon(Icons.email),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(30), // Sesuaikan radius
                         ),
                       ),
                     ),
@@ -89,38 +95,38 @@ class LoginScreen extends StatelessWidget {
                         labelText: 'Password',
                         prefixIcon: const Icon(Icons.lock),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(30), // Sesuaikan radius
                         ),
                         suffixIcon: const Icon(Icons.visibility),
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'Forgot Password?',
-                          style: TextStyle(color: Colors.grey),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: true, // Sesuaikan jika diperlukan
+                          onChanged: (bool? value) {},
+                          activeColor: Colors.green, // Sesuaikan warna
                         ),
-                      ),
+                        const Text('Remember me'),
+                      ],
                     ),
                     const SizedBox(height: 20),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.yellow, // Warna tombol Log In
+                          backgroundColor: Colors.green, // Warna tombol hijau
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(30), // Sesuaikan radius
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 15),
                         ),
                         onPressed: () {},
                         child: const Text(
-                          'Log In',
+                          'Sign up',
                           style: TextStyle(
-                              fontSize: 18, color: Colors.black), // Warna teks
+                              fontSize: 18, color: Colors.white), // Warna teks putih
                         ),
                       ),
                     ),
@@ -132,7 +138,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text('Or'),
+                          child: Text('or continue with'),
                         ),
                         Expanded(
                           child: Divider(),
@@ -144,17 +150,17 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         IconButton(
+                          icon: Image.asset('assets/facebook.png'), // Logo Facebook
+                          iconSize: 40,
+                          onPressed: () {},
+                        ),
+                        IconButton(
                           icon: Image.asset('assets/google.png'), // Logo Google
                           iconSize: 40,
                           onPressed: () {},
                         ),
                         IconButton(
-                          icon: Image.asset('assets/facebook.png'),
-                          iconSize: 40,
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Image.asset('assets/github.png'),
+                          icon: Image.asset('assets/github.png'), // Logo Apple
                           iconSize: 40,
                           onPressed: () {},
                         ),
@@ -164,17 +170,18 @@ class LoginScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('Don\'t have an account?'),
+                        const Text('Already have an account?'),
                         TextButton(
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                              MaterialPageRoute(
+                                  builder: (context) => const RegisterScreen()),
                             );
                           },
                           child: const Text(
-                            'Sign Up',
-                            style: TextStyle(color: Colors.yellow),
+                            'Sign in',
+                            style: TextStyle(color: Colors.green),
                           ),
                         ),
                       ],
