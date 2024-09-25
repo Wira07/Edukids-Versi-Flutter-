@@ -1,3 +1,4 @@
+import 'package:edukids/Deskripsi.dart';
 import 'package:edukids/profilepage.dart';
 import 'package:flutter/material.dart';
 import 'three_page.dart'; // Pastikan mengimpor halaman ThreePage
@@ -22,7 +23,7 @@ class _DashboardState extends State<Dashboard> {
       // Indeks untuk Course
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ThreePage()),
+        MaterialPageRoute(builder: (context) => const ThreePage()),
       );
     } else if (index == 3) {
       // Indeks untuk Profile
@@ -77,7 +78,7 @@ class _DashboardState extends State<Dashboard> {
               accountEmail: Text('wiralodrasaputra07@gmail.com'),
               currentAccountPicture: CircleAvatar(
                 backgroundImage:
-                    AssetImage('assets/ui_ux.jpeg'), // Path gambar profil
+                    AssetImage('assets/blender_course.jpeg'), // Path gambar profil
               ),
               decoration: BoxDecoration(
                 color: Colors.purple, // Warna latar belakang header
@@ -96,7 +97,7 @@ class _DashboardState extends State<Dashboard> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ThreePage()),
+                  MaterialPageRoute(builder: (context) => const ThreePage()),
                 );
               },
             ),
@@ -185,7 +186,7 @@ class _DashboardState extends State<Dashboard> {
                       lessons: "16 Lessons • 48 Hours",
                       price: "\$400",
                       category: "Design",
-                      imagePath: 'assets/ui_ux.jpeg', // Gambar UI/UX Design
+                      imagePath: 'assets/blender_course.jpeg', // Gambar UI/UX Design
                     ),
                     SizedBox(width: 16), // Jarak antar kartu
                     PopularCourseCard(
@@ -360,72 +361,81 @@ class PopularCourseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 180,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
+    return InkWell(
+      onTap: () {
+        // Navigasi ke halaman Deskripsi saat kartu di klik
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Deskripsi()),
+        );
+      },
+      child: Container(
+        width: 180,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
             ),
-            child: Image.asset(
-              imagePath,
-              height: 100,
-              width: double.infinity,
-              fit: BoxFit.cover,
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+              child: Image.asset(
+                imagePath,
+                height: 100,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  courseTitle,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  lessons,
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      price,
-                      style: const TextStyle(
-                        color: Colors.purple,
-                        fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    courseTitle,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    lessons,
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        price,
+                        style: const TextStyle(
+                          color: Colors.purple,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      category,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12,
+                      Text(
+                        category,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
