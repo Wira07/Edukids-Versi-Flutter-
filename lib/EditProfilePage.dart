@@ -39,17 +39,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            const CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/github.png'), // Replace with actual image URL
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: CircleAvatar(
-                  radius: 15,
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.camera_alt, size: 15),
+            Stack(
+              children: [
+                const CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage('assets/github.png'), // Replace with actual image URL
                 ),
-              ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: CircleAvatar(
+                    radius: 15,
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      icon: const Icon(Icons.camera_alt, size: 15),
+                      onPressed: () {
+                        // Action to update the profile picture
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             buildTextField("Name", nameController),
@@ -73,8 +83,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
       decoration: InputDecoration(
         labelText: labelText,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(20), // Rounded shape added here
         ),
+        filled: true,
+        fillColor: Colors.grey[100], // Light background to make fields stand out
       ),
     );
   }
@@ -86,7 +98,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       decoration: InputDecoration(
         labelText: "Password",
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(20), // Rounded shape for password field
         ),
         suffixIcon: IconButton(
           icon: Icon(
@@ -98,6 +110,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
             });
           },
         ),
+        filled: true,
+        fillColor: Colors.grey[100], // Light background for the password field
       ),
     );
   }

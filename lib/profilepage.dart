@@ -1,4 +1,5 @@
 import 'package:edukids/EditProfilePage.dart';
+import 'package:edukids/LanguagePage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -218,7 +219,10 @@ class ProfilePage extends StatelessWidget {
                     icon: Icons.language,
                     text: "language",
                     onTap: () {
-                      // Action for Settings
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LanguagePage()),
+                      );
                     },
                   ),
                   ProfileMenuItem(
