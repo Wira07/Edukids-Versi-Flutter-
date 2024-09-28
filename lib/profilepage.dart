@@ -1,5 +1,6 @@
 import 'package:edukids/EditProfilePage.dart';
 import 'package:edukids/LanguagePage.dart';
+import 'package:edukids/SettingsScreen.dart';
 import 'package:edukids/loginscreen.dart';
 import 'package:flutter/material.dart';
 
@@ -206,7 +207,10 @@ class ProfilePage extends StatelessWidget {
                     icon: Icons.settings,
                     text: "Settings",
                     onTap: () {
-                      // Action for Settings
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SettingsScreen()),
+                      );
                     },
                   ),
                   ProfileMenuItem(

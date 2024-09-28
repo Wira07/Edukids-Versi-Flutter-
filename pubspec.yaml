@@ -17,6 +17,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  google_fonts: ^4.0.3 # Add this line
 
 flutter:
   uses-material-design: true
@@ -32,6 +33,12 @@ flutter:
     - assets/backend.jpeg
     - assets/TCourse.jpg
     - assets/github.png
+    - assets/profile.png
+
+  fonts:
+    - family: poppins
+      fonts:
+        - asset: fonts/poppins/Poppins-Black.ttf
 
 flutter_native_splash:
   color: "#ffffff" # Warna latar belakang splash screen
