@@ -110,10 +110,9 @@ class Deskripsi extends StatelessWidget {
                   const SizedBox(height: 20),
                   // Course Details: Lessons, Ratings, Students
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       _buildCourseDetailCard(Icons.book, '30+', 'Lessons'),
-                      _buildCourseDetailCard(Icons.star, '4.5', 'Ratings'),
                       _buildCourseDetailCard(Icons.people, '100+', 'Students'),
                     ],
                   ),
