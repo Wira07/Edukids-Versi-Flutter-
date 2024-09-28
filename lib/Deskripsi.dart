@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'dashboard.dart';
 
 void main() {
@@ -36,7 +35,7 @@ class Deskripsi extends StatelessWidget {
                   height: 250,
                   decoration: const BoxDecoration(
                     borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(30)),
+                    BorderRadius.vertical(bottom: Radius.circular(30)),
                     image: DecorationImage(
                       image: AssetImage('assets/fullstack.jpeg'),
                       fit: BoxFit.cover,
@@ -143,11 +142,11 @@ class Deskripsi extends StatelessWidget {
                   const SizedBox(height: 10),
                   Text(
                     'This UI/UX Design Course is a comprehensive introduction to '
-                    'the fundamental principles and concepts of User Interface (UI) '
-                    'and User Experience (UX) design. Targeted towards beginners, '
-                    'this course provides a solid foundation in understanding the core '
-                    'elements that contribute to creating intuitive, user-friendly digital '
-                    'experiences.',
+                        'the fundamental principles and concepts of User Interface (UI) '
+                        'and User Experience (UX) design. Targeted towards beginners, '
+                        'this course provides a solid foundation in understanding the core '
+                        'elements that contribute to creating intuitive, user-friendly digital '
+                        'experiences.',
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                 ],
@@ -162,9 +161,11 @@ class Deskripsi extends StatelessWidget {
   // Widget to create the cards for course details
   Widget _buildCourseDetailCard(IconData icon, String value, String label) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 5), // Tambahkan margin antar card
       child: SizedBox(
-        // Menambahkan SizedBox untuk mengatur lebar
         width: 110, // Mengatur lebar tiap card agar lebih lebar
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -173,19 +174,18 @@ class Deskripsi extends StatelessWidget {
             children: [
               Text(
                 value,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(height: 5),
-              // Spasi kecil antara teks dan label
+              const SizedBox(height: 5), // Spasi kecil antara teks dan label
               Text(
                 label,
                 style: const TextStyle(color: Colors.grey),
               ),
-              const SizedBox(height: 10),
-              // Spasi sebelum ikon
+              const SizedBox(height: 10), // Spasi sebelum ikon
               Icon(icon, color: Colors.blue, size: 24),
-              // Menempatkan ikon di tengah
             ],
           ),
         ),

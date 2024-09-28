@@ -20,18 +20,14 @@ class _DashboardState extends State<Dashboard> {
     });
 
     if (index == 1) {
-      // Indeks untuk Course
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const ThreePage()),
       );
     } else if (index == 3) {
-      // Indeks untuk Profile
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) =>
-                const ProfilePage()), // Navigasi ke ProfilePage
+        MaterialPageRoute(builder: (context) => const ProfilePage()), // Navigasi ke ProfilePage
       );
     }
   }

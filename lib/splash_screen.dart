@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Image.asset('assets/github.png'),  // Path gambar splash screen
+        child: Image.asset('assets/google_logo.png'),  // Path gambar splash screen
       ),
     );
   }

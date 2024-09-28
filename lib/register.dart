@@ -17,13 +17,14 @@ class RegisterScreen extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.only(top: 40.0), // Atur jarak dari atas
+              padding: const EdgeInsets.only(top: 60.0), // Atur jarak dari atas
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset(
                     'assets/TCourse.jpg', // Sesuaikan path gambar logo kamu
-                    height: 40, // Perkecil tinggi gambar
+                    height: 100,
+                    fit: BoxFit.cover,
                   ),
                   const SizedBox(height: 10),
                   const Text(
