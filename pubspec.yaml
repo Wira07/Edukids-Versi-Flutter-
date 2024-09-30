@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.2.19
   cupertino_icons: ^1.0.8
+  firebase_core: ^3.6.0
+
 
 dev_dependencies:
   flutter_test:
