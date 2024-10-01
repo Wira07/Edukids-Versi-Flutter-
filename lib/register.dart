@@ -1,25 +1,52 @@
-import 'package:edukids/dashboard.dart';
 import 'package:flutter/material.dart';
-import 'register.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
+import 'package:edukids/dashboard.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: RegisterScreen(),
-    );
-  }
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+class _RegisterScreenState extends State<RegisterScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;  // Firebase Auth instance
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  bool _isLoading = false;
+
+  Future<void> _register() async {
+    setState(() {
+      _isLoading = true;  // Show loading indicator
+    });
+
+    try {
+      // Firebase Authentication - Create User with Email and Password
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      // Optionally, you can update the display name of the user
+      await userCredential.user?.updateDisplayName(_nameController.text.trim());
+
+      // Redirect to Dashboard after successful registration
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const Dashboard()),
+      );
+    } on FirebaseAuthException catch (e) {
+      // Show error message if registration fails
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message ?? "An error occurred")),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;  // Hide loading indicator
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +107,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   TextField(
+                    controller: _nameController,
                     decoration: InputDecoration(
                       labelText: 'Full Name',
                       prefixIcon: const Icon(Icons.person),
@@ -90,6 +118,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   TextField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       labelText: 'Email',
                       prefixIcon: const Icon(Icons.email),
@@ -100,6 +129,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   TextField(
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'Password',
@@ -132,17 +162,14 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 15),
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Dashboard()),
-                        );
-                      },
-                      child: const Text(
+                      onPressed: _isLoading ? null : _register,  // Disable button during registration
+                      child: _isLoading
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : const Text(
                         'Register',
                         style: TextStyle(
-                          fontSize: 18, color: Colors.white,
+                          fontSize: 18,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -193,7 +220,8 @@ class RegisterScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Dashboard()),
+                              builder: (context) => const Dashboard(),
+                            ),
                           );
                         },
                         child: const Text(
@@ -210,5 +238,13 @@ class RegisterScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
+    super.dispose();
   }
 }

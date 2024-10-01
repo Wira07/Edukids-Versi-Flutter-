@@ -1,8 +1,12 @@
+import 'dart:io';
 import 'package:edukids/EditProfilePage.dart';
 import 'package:edukids/LanguagePage.dart';
 import 'package:edukids/SettingsScreen.dart';
 import 'package:edukids/loginscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart'; // Tambahkan ini untuk memilih gambar
 
 void main() {
   runApp(const MaterialApp(home: Dashboard())); // Run the Dashboard initially
@@ -17,6 +21,48 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 0; // To track selected item in BottomNavigationBar
+  File? _image;
+  String? imageUrl;
+
+  final User? user = FirebaseAuth.instance.currentUser; // Mendapatkan pengguna saat ini
+
+  Future<void> _uploadImage() async {
+    if (_image == null) return;
+
+    try {
+      // Upload gambar ke Firebase Storage
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('profile_images')
+          .child('${user!.uid}.jpg');
+
+      await ref.putFile(_image!);
+
+      // Dapatkan URL dari gambar yang diupload
+      String downloadUrl = await ref.getDownloadURL();
+
+      setState(() {
+        imageUrl = downloadUrl;
+      });
+
+      // Anda dapat menyimpan downloadUrl ke Firestore jika ingin
+    } catch (e) {
+      print("Error uploading image: $e");
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+      });
+
+      // Upload gambar setelah dipilih
+      _uploadImage();
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -27,7 +73,7 @@ class _DashboardState extends State<Dashboard> {
       // Index for ProfilePage
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const ProfilePage()),
+        MaterialPageRoute(builder: (context) => ProfilePage(imageUrl: imageUrl)),
       );
     }
   }
@@ -64,8 +110,8 @@ class _DashboardState extends State<Dashboard> {
         ),
       ),
       // Drawer and other widgets omitted for brevity...
-      body: // your body content here
-          BottomNavigationBar(
+      body: const Center(child: Text("Main content goes here")), // Body content placeholder
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex, // Track selected item
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped, // Add tap logic
@@ -93,7 +139,10 @@ class _DashboardState extends State<Dashboard> {
 }
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key}); // Constructor
+  final String? imageUrl; // Tambahkan parameter imageUrl di sini
+
+  const ProfilePage({super.key, this.imageUrl}); // Constructor dengan imageUrl
+
 
   @override
   Widget build(BuildContext context) {
@@ -117,10 +166,16 @@ class ProfilePage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 20.0),
               child: Column(
                 children: [
-                  const CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage(
-                        'assets/profile.png'), // Replace with profile image
+                  GestureDetector(
+                    onTap: () {
+                      // Perbaikan, method _pickImage perlu di-refactor
+                    },
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundImage: imageUrl != null
+                          ? NetworkImage(imageUrl!) // Menampilkan gambar dari Firebase
+                          : const AssetImage('assets/profile.png') as ImageProvider,
+                    ),
                   ),
                   const SizedBox(height: 10),
                   const Text(
@@ -217,12 +272,12 @@ class ProfilePage extends StatelessWidget {
                     icon: Icons.location_city,
                     text: "Location",
                     onTap: () {
-                      // Action for Settings
+                      // Action for Location
                     },
                   ),
                   ProfileMenuItem(
                     icon: Icons.language,
-                    text: "language",
+                    text: "Language",
                     onTap: () {
                       Navigator.push(
                         context,
@@ -302,25 +357,20 @@ class ProfileMenuItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Icon(icon, color: iconColor),
-                const SizedBox(width: 10),
-                Text(
-                  text,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: textColor,
-                  ),
-                ),
-              ],
+            Icon(icon, color: iconColor),
+            const SizedBox(width: 20),
+            Text(
+              text,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: textColor,
+              ),
             ),
-            Icon(Icons.arrow_forward_ios, color: textColor),
+            const Spacer(),
+            Icon(Icons.arrow_forward_ios, color: iconColor),
           ],
         ),
       ),
